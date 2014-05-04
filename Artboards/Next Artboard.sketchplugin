@@ -1,0 +1,31 @@
+//Select And Center To Next Artboard (command l)
+
+var page = [doc currentPage];
+var artboards = [page artboards];
+if ([artboards count] > 0) {
+	var current_artboard = [page currentArtboard];
+	var next_index;
+	if (!current_artboard) {
+		next_index = 0;
+	} else {
+		next_index = [artboards indexOfObject:current_artboard] + 1;
+	}
+
+	if(next_index) {
+		if(next_index == [artboards count]) {
+			next_index = 0;	
+		}
+	} else {
+		next_index = 0;
+	}
+
+	[page deselectAllLayers];
+
+	var next_artboard = [artboards objectAtIndex:next_index];
+	[next_artboard select:YES byExpandingSelection:NO];
+
+	var view = [doc currentView];
+	[view centerRect:[next_artboard absoluteRect]];
+} else {
+	[doc showMessage:"There is no Artboard."];
+}
