@@ -3,30 +3,30 @@
 var page = [doc currentPage];
 var artboards = [page artboards];
 if ([artboards count] > 0) {
-	var current_artboard = [page currentArtboard];
-	var previous_index;
-	if (!current_artboard) {
-		previous_index = 0;
-	} else {
-		previous_index = [artboards indexOfObject:current_artboard] - 1;
-	}
+  var current_artboard = [page currentArtboard];
+  var previous_index;
+  if (!current_artboard) {
+    previous_index = 0;
+  } else {
+    previous_index = [artboards indexOfObject:current_artboard] - 1;
+  }
 
-	if(previous_index) {
-		if(previous_index == -1) {
-			previous_index = [artboards count]-1;	
-		}
-	} else {
-		previous_index = 0;
-	}
+  if(previous_index) {
+    if(previous_index == -1) {
+      previous_index = [artboards count]-1; 
+    }
+  } else {
+    previous_index = 0;
+  }
 
-	[page deselectAllLayers]
+  [page deselectAllLayers]
 
-	var previous_artboard = [artboards objectAtIndex:previous_index];
-	[previous_artboard select:YES byExpandingSelection:NO];
+  var previous_artboard = [artboards objectAtIndex:previous_index];
+  [previous_artboard select:YES byExpandingSelection:NO];
 
-	var view = [doc currentView];
-	[view centerRect:[previous_artboard absoluteRect]];
+  var view = [doc currentView];
+  [view centerRect:[previous_artboard absoluteRect]];
 
 } else {
-	[doc showMessage:"There is no Artboard."];
+  [doc showMessage:"There is no Artboard."];
 }
