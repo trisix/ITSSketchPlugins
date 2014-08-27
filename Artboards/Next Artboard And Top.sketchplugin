@@ -1,4 +1,4 @@
-// Select and center to next artboard (ctrl i)
+// Select and top to next artboard (ctrl shift i)
 
 var page = [doc currentPage];
 var artboards = [page artboards];
@@ -21,11 +21,21 @@ if ([artboards count] > 0) {
 
 	[page deselectAllLayers];
 
+	var view = [doc currentView];
 	var nextArtboard = [artboards objectAtIndex:nextIndex];
+	var nextFrame = [GKRect new];
+	var topOffset = 100;
+	[nextFrame setX:[[nextArtboard frame] x]];
+	[nextFrame setY:[[nextArtboard frame] y]];
+	[nextFrame setWidth:[[nextArtboard frame] width]];
+
+	var properHeight = ([[nextArtboard frame] height]/2 < [view frame].size.height) ? [[nextArtboard frame] height]/2 : [view frame].size.height-topOffset;
+	[nextFrame setHeight:properHeight];
+
 	[nextArtboard select:true byExpandingSelection:false];
 
 	var view = [doc currentView];
-	[view centerRect:[nextArtboard absoluteRect]];
+	[view centerRect:nextFrame];
 } else {
 	[doc showMessage:"There is no Artboard."];
 }
